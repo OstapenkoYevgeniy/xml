@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="beer" type="beerType"/>
+  <xs:complexType name="ingredientsType">
+    <xs:sequence>
+      <xs:element name="ingredient" maxOccurs="unbounded" minOccurs="0">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Вода питьевая очищенная"/>
+            <xs:enumeration value="Солод ячменный светлый"/>
+            <xs:enumeration value="Ячмень пивоваренный"/>
+            <xs:enumeration value="Солодовый экстракт"/>
+            <xs:enumeration value="Хлебопродукты"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="charsType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="abv"/>
+      <xs:element type="xs:string" name="transparent"/>
+      <xs:element type="xs:string" name="filtered"/>
+      <xs:element type="xs:string" name="nutritionFacts"/>
+      <xs:element type="packagingType" name="packaging"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="beerType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="name"/>
+      <xs:element type="xs:string" name="type"/>
+      <xs:element type="xs:string" name="alcohol"/>
+      <xs:element type="xs:string" name="manufacturer"/>
+      <xs:element type="ingredientsType" name="ingredients"/>
+      <xs:element type="charsType" name="chars"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="packagingType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="material"/>
+      <xs:element type="xs:string" name="volume"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
