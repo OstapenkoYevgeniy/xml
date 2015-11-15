@@ -1,8 +1,7 @@
 package com.john;
 
 import com.john.entity.Beer;
-import com.john.parser.ParserException;
-import com.john.parser.impl.SaxParser;
+import com.john.parser.SaxParserImpl;
 import org.slf4j.Logger;
 
 import java.io.File;
@@ -18,17 +17,17 @@ public class Main {
         File file = new File(classLoader.getResource("beer.xml").getFile());
 
         Beer beer = null;
-        SaxParser saxParser = new SaxParser();
-        saxParser.configure();
-        try {
+        SaxParserImpl saxParser = new SaxParserImpl();
+        saxParser.configure(Beer.class);
 
-            beer = saxParser.parse(file, Beer.class);
-        } catch (ParserException e) {
-            log.error("ParserException", e);
-            System.exit(0);
-        }
-
-        log.info(beer.toSourceString());
+//        try {
+//            beer = saxParser.parse(file, Beer.class);
+//        } catch (ParserException e) {
+//            log.error("ParserException", e);
+//            System.exit(0);
+//        }
+//
+//        log.info(beer.toSourceString());
     }
 }
 

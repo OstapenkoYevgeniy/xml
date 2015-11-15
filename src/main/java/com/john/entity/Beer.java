@@ -1,86 +1,99 @@
 package com.john.entity;
 
 
+import com.john.annotation.SetterField;
+
+
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+@XmlRootElement(name = "beer")
 public class Beer {
     private String name;
-    private String type;
-    private String alcohol; // TODO как тут хранить значения вложенных классов
+    private String beerType;
+    private Alcohol alcoholType;
+
     private String manufacturer;
     private String filtered;
     private String material;
-    private List<String> ingredients;
-    private int nutritionFacts;
-    private int transparent;
-    private float volume;
-    private float abv;
+    private double volume;
+
+    private List<Characteristic> characteristics;
+
+//    private List<String> ingredients;
+
 
     public Beer() {
-        ingredients = new ArrayList<>();
+//        ingredients = new ArrayList<>();
+        characteristics = new ArrayList<>();
     }
 
-    public void setMaterial(String material) {
-        this.material = material;
-    }
-
-    public void setVolume(float volume) {
-        this.volume = volume;
-    }
-
-    public void setNutritionFacts(int nutritionFacts) {
-        this.nutritionFacts = nutritionFacts;
-    }
-
-    public void setFiltered(String filtered) {
-        this.filtered = filtered;
-    }
-
-    public void setTransparent(int transparent) {
-        this.transparent = transparent;
-    }
-
-    public void setAbv(float abv) {
-        this.abv = abv;
-    }
-
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
-    }
-
+    @SetterField(name = "name")
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    @SetterField(name = "beerType")
+    public void setBeerType(String type) {
+        this.beerType = type;
     }
 
-    public void setAlcohol(String alcohol) {
-        this.alcohol = alcohol;
+    @SetterField(name = "alcoholType")
+    public void setAlcoholType(Alcohol alcohol) {
+        this.alcoholType = alcohol;
     }
 
-    public void addIngredient(String ingredient) {
-        ingredients.add(ingredient);
+    @SetterField(name = "manufacturer")
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
     }
+
+    @SetterField(name = "filtered")
+    public void setFiltered(String filtered) {
+        this.filtered = filtered;
+    }
+
+    //
+    @SetterField(name = "material")
+    public void setMaterial(String material) {
+        this.material = material;
+    }
+
+    @SetterField(name = "volume")
+    public void setVolume(double volume) {
+        this.volume = volume;
+    }
+
+    @SetterField(name = "characteristics")
+    public void addCharacteristics(Characteristic characteristic) {
+        characteristics.add(characteristic);
+    }
+//
+//    @SetterField(name = "ingredients")
+//    public void setIngredients(List<String> ingredients) {
+//        this.ingredients = ingredients;
+//    }
 
     public String toSourceString() {
         StringBuilder builder = new StringBuilder();
-        builder.append(name + " " + type + " " + filtered + " " + alcohol + ". " + manufacturer + "\n");
+        builder.append(name + " " + beerType + " " + filtered + " " + alcoholType + ". " + manufacturer + "\n");
+        // builder.append(name + " " + type + " " + filtered + " " +  manufacturer + "\n");
+
+
         builder.append("Ингридиенты: ");
-        for (String ingredient : ingredients) {
-            builder.append(ingredient + "; ");
-        }
-        builder.append("\nАлкоголь: " + abv + "%");
-        builder.append("\nПрозрачность: " + transparent + "%");
-        builder.append("\nПищевая ценность: " + nutritionFacts + "ккал.");
+//        for (String ingredient : ingredients) {
+//            builder.append(ingredient + "; ");
+//        }
+
         builder.append("\n" + material + " " + volume + " л.");
         return builder.toString();
     }
 
-    public class Type {
-        public static final String ALCOHOL = "Алкогольное";
-        public static final String ALCOHOL_FREE = "Безалкогольное";
+    public enum Alcohol {
+        ALCOHOL, NO_ALCOHOL;
     }
+
+
 }

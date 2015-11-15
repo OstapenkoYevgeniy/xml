@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beer>
     <name>Zatecky Gus</name>
-    <type>Светлое</type>
-    <alcohol>Алкогольное</alcohol>
+    <beerType>Светлое</beerType>
+    <alcoholType>ALCOHOL</alcoholType>
     <manufacturer>ТОО "CARLSBERG KAZAKHSTAN"</manufacturer>
+    <material>Стеклянная тара</material>
+    <volume>0.5</volume>
 
     <ingredients>
         <ingredient>Вода питьевая очищенная</ingredient>
@@ -18,9 +20,5 @@
         <transparent>89</transparent>
         <filtered>Фильтрованное</filtered>
         <nutritionFacts>40</nutritionFacts>
-        <packaging>
-            <material>Стеклянная тара</material>
-            <volume>0.5</volume>
-        </packaging>
     </chars>
 </beer>
