@@ -4,7 +4,7 @@ import com.john.annotation.XmlElement;
 import com.john.annotation.XmlNewClass;
 import com.john.annotation.XmlRootElement;
 import com.john.entity.Customer;
-import org.boon.Boon;
+import com.john.entity.Order;
 import org.slf4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -16,10 +16,7 @@ import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Type;
-import java.lang.reflect.TypeVariable;
+import java.lang.reflect.*;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
@@ -28,59 +25,6 @@ import java.util.function.Function;
 
 public class SaxParserImpl implements Parser {
     private Logger log = org.slf4j.LoggerFactory.getLogger(SaxParserImpl.class);
-    private Map<String, MethodHandle> configuration = new HashMap<>();
-    private Map<Class, Function<String, ?>> converter = new HashMap<>();
-
-    private Map<String, Map<String, Method>> config = new HashMap<>();
-
-
-    public void configure(Class clazz) throws NoSuchFieldException, IllegalAccessException, NoSuchMethodException, ClassNotFoundException {
-        log.info("SaxParser.Configure() start!");
-
-        Map<String, Method> sm = new HashMap<>();
-
-        MethodHandles.Lookup lookup = MethodHandles.lookup();
-
-        Field[] fields = clazz.getDeclaredFields();
-        String object = clazz.getSimpleName();
-        for (Field field : fields) {
-            String simpleName = field.getName();
-            Class classType = field.getType();
-            if (!classType.getSimpleName().equals("List")) {
-                sm.put(simpleName, clazz.getMethod("set" + firstUpper(simpleName), classType));
-            } else {
-                sm.put(simpleName,clazz.getMethod("add" + firstUpper(simpleName),getGenericType(field.getGenericType())));
-            }
-
-            System.out.println(field.getType());
-            System.out.println(field.getType().getDeclaredFields());
-        }
-        config.put(object, sm);
-    }
-
-    private Class getGenericType(Type genericType) throws ClassNotFoundException {
-        String result = genericType.getTypeName();
-        result = result.substring(result.lastIndexOf("<") + 1, result.lastIndexOf(">"));
-        return Class.forName(result);
-    }
-
-    private String firstUpper(String string) {
-        return string.substring(0, 1).toUpperCase() + string.substring(1, string.length());
-    }
-
-
-    public void showConfigure() {
-        System.out.println("SHOW CONFIGURE!!!!!!");
-        for (Map.Entry<String, MethodHandle> entry : configuration.entrySet()) {
-            System.out.println(entry.getKey() + " - " + entry.getValue());
-        }
-        System.out.println("--------");
-        for (Map.Entry<String, Map<String, Method>> entry : config.entrySet()) {
-            System.out.println(entry.getKey());
-            System.out.println(entry.getValue());
-
-        }
-    }
 
     @Override
     public <T> T parse(File file, Class<T> clazz) throws ParserException {
@@ -101,51 +45,97 @@ public class SaxParserImpl implements Parser {
     }
 
     private class Handler extends DefaultHandler {
+        ClassScanner classScanner = new ClassScanner();
         Class clazz;
         Object obj;
-        Object curretObject;
-        Class curretClass;
         StringBuilder charaster;
         String currentElement;
-        String rootElement = "";
+        Object currentObject;
+        Class currentClass;
+        Method currentMethod;
         Deque<Object> deque = new ArrayDeque<>();
 
         public Handler(Class clazz) {
             this.clazz = clazz;
+            this.currentClass = clazz;
         }
-
 
         @Override
         public void startDocument() throws SAXException {
             log.debug("BeerHandler.startDocument()");
-            try {
-                obj = clazz.newInstance();
-
-            } catch (InstantiationException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                //deque.add(clazz.newInstance());
+//            } catch (InstantiationException | IllegalAccessException e) {
+//                e.printStackTrace();
+//            }
             charaster = new StringBuilder();
         }
 
         @Override
         public void endDocument() throws SAXException {
-            log.debug("BeerHandler.endDocument()");
+//            log.debug("BeerHandler.endDocument()");
             charaster.setLength(0);
             currentElement = "";
+            System.out.println("Конец документа!");
+            System.out.println(deque.size());
+            System.out.println("deque.getFirst() - " + deque.getFirst());
+            obj = deque.getFirst();
         }
 
         @Override
         public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws SAXException {
             //log.debug("startElement(" + s + ", " + s1 + ", " + s2 + ", attributes)");
             System.out.println("s|" + namespaceURI + "| |" + localName + "| |" + qName + "|");
-            currentElement = qName;
+
+            try {
+                Object object = classScanner.findField(currentClass, qName);
+                if (object instanceof Method) {
+                    currentMethod = (Method) object;
+                } else {
+                    System.out.println("Добавление объекта в очередь: " + object);
+                    deque.add(object);
+                }
+//                Object object = classScanner.findField(currentClass, qName);
+//                if (object instanceof Method) {
+//                    System.out.println("Это метод!!!");
+//                } else {
+//                    currentObject = object;
+//                    currentClass = clazz;
+//                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            }
+
 
         }
 
         @Override
         public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
             // log.debug("endElement(" + s + ", " + s1 + ", " + s2 + ")");
-            // System.out.println("e|" + namespaceURI + "| |" + localName + "| |" + qName + "|");
+            System.out.println("e|" + namespaceURI + "| |" + localName + "| |" + qName + "|");
+
+            if (currentMethod != null) {
+                    System.out.println("PARSER");
+                Type[] type = currentMethod.getGenericParameterTypes();
+                try {
+                    System.out.println("end elem >>");
+                    System.out.println(deque.getLast());
+
+                    currentMethod.invoke(deque.getLast(), converter(charaster.toString(), type[0]));
+                    Order od = (Order) deque.getLast();
+                    System.out.println(od.getId());
+//                    currentMethod.invoke(converter(charaster.toString(), type[0]));
+                    System.out.println("<< end elem");
+                    currentMethod = null;
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+
+            }
 
 //            try {
 //                MethodHandle mh = configuration.get(currentElement);
@@ -165,6 +155,13 @@ public class SaxParserImpl implements Parser {
             //log.debug("characters(" + new String(chars, start, end) + ", " + start + ", " + end + ")");
             charaster.setLength(0);
             charaster.append(chars, start, end);
+        }
+    }
+
+    private Object converter (String strint, Object toObject) {
+        switch (toObject.toString()) {
+            case "long": return Long.parseLong(strint);
+            default: throw new UnsupportedOperationException("Неизвестынй тип!");
         }
     }
 }

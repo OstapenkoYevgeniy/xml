@@ -31,6 +31,21 @@ public class Order {
     }
 
     public String toSourceString() {
-        return "not found";
+        String result = "id: " + id + "\n";
+        result += "Customer: " + id;
+
+        return result;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public List<Beer> getBeers() {
+        return beers;
     }
 }

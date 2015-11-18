@@ -2,56 +2,54 @@
 
 <order xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="order.xsd">
-    <id>18</id>
-    <customer>
-        <id>895</id>
-        <name>Yevgeniy</name>
-        <lastname>Ostapenko</lastname>
-        <address>
-            <streetAddress>70 - 2 - 33</streetAddress>
-            <city>Temirtau</city>
-            <zip>405000</zip>
-        </address>
-    </customer>
-    <beers>
-        <beer>
-            <id>0</id>
-            <name>Zatecky Gus</name>
-            <type>Светлое</type>
-            <alcohol>ALCOHOL</alcohol>
-            <manufacturer>ТОО "CARLSBERG KAZAKHSTAN"</manufacturer>
-            <ingredients>
-                <ingredient>Вода питьевая очищенная</ingredient>
-                <ingredient>Солод ячменный светлый</ingredient>
-                <ingredient>Ячмень пивоваренный</ingredient>
-                <ingredient>Солодовый экстракт</ingredient>
-                <ingredient>Хлебопродукты</ingredient>
-            </ingredients>
-            <characteristics>
-                <characteristic>
-                    <description>Тара</description>
-                    <value>Стеклянная</value>
-                </characteristic>
-                <characteristic>
-                    <description>Объем</description>
-                    <value>0.5</value>
-                </characteristic>
-                <characteristic>
-                    <description>Содержание алкоголя</description>
-                    <value>4.6</value>
-                </characteristic>
-                <characteristic>
-                    <description>Прозрачность</description>
-                    <value>89</value>
-                </characteristic>
-                <characteristic>
-                    <description>Фильтрованное</description>
-                </characteristic>
-                <characteristic>
-                    <description>Пищевая ценность</description>
-                    <value>40</value>
-                </characteristic>
-            </characteristics>
-        </beer>
-    </beers>
+    <id>188888</id>
+    <!--<customer>-->
+        <!--&lt;!&ndash;<id>895</id>&ndash;&gt;-->
+        <!--&lt;!&ndash;<name>Yevgeniy</name>&ndash;&gt;-->
+        <!--&lt;!&ndash;<lastname>Ostapenko</lastname>&ndash;&gt;-->
+        <!--&lt;!&ndash;<streetAddress>70 - 2 - 33</streetAddress>&ndash;&gt;-->
+        <!--&lt;!&ndash;<city>Temirtau</city>&ndash;&gt;-->
+        <!--&lt;!&ndash;<zip>405000</zip>&ndash;&gt;-->
+    <!--</customer>-->
+    <!--<beers>-->
+        <!--&lt;!&ndash;<beer>&ndash;&gt;-->
+            <!--&lt;!&ndash;<id>0</id>&ndash;&gt;-->
+            <!--&lt;!&ndash;<name>Zatecky Gus</name>&ndash;&gt;-->
+            <!--&lt;!&ndash;<type>Светлое</type>&ndash;&gt;-->
+            <!--&lt;!&ndash;<alcohol>ALCOHOL</alcohol>&ndash;&gt;-->
+            <!--&lt;!&ndash;<manufacturer>ТОО "CARLSBERG KAZAKHSTAN"</manufacturer>&ndash;&gt;-->
+            <!--&lt;!&ndash;<ingredients>&ndash;&gt;-->
+                <!--&lt;!&ndash;<ingredient>Вода питьевая очищенная</ingredient>&ndash;&gt;-->
+                <!--&lt;!&ndash;<ingredient>Солод ячменный светлый</ingredient>&ndash;&gt;-->
+                <!--&lt;!&ndash;<ingredient>Ячмень пивоваренный</ingredient>&ndash;&gt;-->
+                <!--&lt;!&ndash;<ingredient>Солодовый экстракт</ingredient>&ndash;&gt;-->
+                <!--&lt;!&ndash;<ingredient>Хлебопродукты</ingredient>&ndash;&gt;-->
+            <!--&lt;!&ndash;</ingredients>&ndash;&gt;-->
+            <!--&lt;!&ndash;<characteristics>&ndash;&gt;-->
+                <!--&lt;!&ndash;<characteristic>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<description>Тара</description>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<value>Стеклянная</value>&ndash;&gt;-->
+                <!--&lt;!&ndash;</characteristic>&ndash;&gt;-->
+                <!--&lt;!&ndash;<characteristic>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<description>Объем</description>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<value>0.5</value>&ndash;&gt;-->
+                <!--&lt;!&ndash;</characteristic>&ndash;&gt;-->
+                <!--&lt;!&ndash;<characteristic>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<description>Содержание алкоголя</description>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<value>4.6</value>&ndash;&gt;-->
+                <!--&lt;!&ndash;</characteristic>&ndash;&gt;-->
+                <!--&lt;!&ndash;<characteristic>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<description>Прозрачность</description>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<value>89</value>&ndash;&gt;-->
+                <!--&lt;!&ndash;</characteristic>&ndash;&gt;-->
+                <!--&lt;!&ndash;<characteristic>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<description>Фильтрованное</description>&ndash;&gt;-->
+                <!--&lt;!&ndash;</characteristic>&ndash;&gt;-->
+                <!--&lt;!&ndash;<characteristic>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<description>Пищевая ценность</description>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<value>40</value>&ndash;&gt;-->
+                <!--&lt;!&ndash;</characteristic>&ndash;&gt;-->
+            <!--&lt;!&ndash;</characteristics>&ndash;&gt;-->
+        <!--&lt;!&ndash;</beer>&ndash;&gt;-->
+    <!--</beers>-->
 </order>
