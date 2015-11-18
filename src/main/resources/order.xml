@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<order xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="order.xsd">
+    <id>18</id>
+    <customer>
+        <id>895</id>
+        <name>Yevgeniy</name>
+        <lastname>Ostapenko</lastname>
+        <address>
+            <streetAddress>70 - 2 - 33</streetAddress>
+            <city>Temirtau</city>
+            <zip>405000</zip>
+        </address>
+    </customer>
+    <beers>
+        <beer>
+            <id>0</id>
+            <name>Zatecky Gus</name>
+            <type>Светлое</type>
+            <alcohol>ALCOHOL</alcohol>
+            <manufacturer>ТОО "CARLSBERG KAZAKHSTAN"</manufacturer>
+            <ingredients>
+                <ingredient>Вода питьевая очищенная</ingredient>
+                <ingredient>Солод ячменный светлый</ingredient>
+                <ingredient>Ячмень пивоваренный</ingredient>
+                <ingredient>Солодовый экстракт</ingredient>
+                <ingredient>Хлебопродукты</ingredient>
+            </ingredients>
+            <characteristics>
+                <characteristic>
+                    <description>Тара</description>
+                    <value>Стеклянная</value>
+                </characteristic>
+                <characteristic>
+                    <description>Объем</description>
+                    <value>0.5</value>
+                </characteristic>
+                <characteristic>
+                    <description>Содержание алкоголя</description>
+                    <value>4.6</value>
+                </characteristic>
+                <characteristic>
+                    <description>Прозрачность</description>
+                    <value>89</value>
+                </characteristic>
+                <characteristic>
+                    <description>Фильтрованное</description>
+                </characteristic>
+                <characteristic>
+                    <description>Пищевая ценность</description>
+                    <value>40</value>
+                </characteristic>
+            </characteristics>
+        </beer>
+    </beers>
+</order>

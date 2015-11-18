@@ -1,15 +1,15 @@
 package com.john.entity;
 
 
-import com.john.annotation.SetterField;
+import com.john.annotation.XmlElement;
+import com.john.annotation.XmlElementWrapper;
+import com.john.annotation.XmlRootElement;
 
 
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-@XmlRootElement(name = "beer")
+@XmlRootElement(name = "order")
 public class Beer {
     private String name;
     private String beerType;
@@ -20,6 +20,7 @@ public class Beer {
     private String material;
     private double volume;
 
+   // @XmlElementWrapper(name = "characteristics")
     private List<Characteristic> characteristics;
 
 //    private List<String> ingredients;
@@ -30,43 +31,43 @@ public class Beer {
         characteristics = new ArrayList<>();
     }
 
-    @SetterField(name = "name")
+   // @XmlElement()
     public void setName(String name) {
         this.name = name;
     }
 
-    @SetterField(name = "beerType")
+    //@XmlElement(name = "beerType")
     public void setBeerType(String type) {
         this.beerType = type;
     }
 
-    @SetterField(name = "alcoholType")
+   // @XmlElement(name = "alcoholType")
     public void setAlcoholType(Alcohol alcohol) {
         this.alcoholType = alcohol;
     }
 
-    @SetterField(name = "manufacturer")
+    //@XmlElement(name = "manufacturer")
     public void setManufacturer(String manufacturer) {
         this.manufacturer = manufacturer;
     }
 
-    @SetterField(name = "filtered")
+  //  @XmlElement(name = "filtered")
     public void setFiltered(String filtered) {
         this.filtered = filtered;
     }
 
     //
-    @SetterField(name = "material")
+   // @XmlElement(name = "material")
     public void setMaterial(String material) {
         this.material = material;
     }
 
-    @SetterField(name = "volume")
+   // @XmlElement(name = "volume")
     public void setVolume(double volume) {
         this.volume = volume;
     }
 
-    @SetterField(name = "characteristics")
+   // @XmlElement(name = "characteristic")
     public void addCharacteristics(Characteristic characteristic) {
         characteristics.add(characteristic);
     }
@@ -94,6 +95,4 @@ public class Beer {
     public enum Alcohol {
         ALCOHOL, NO_ALCOHOL;
     }
-
-
 }

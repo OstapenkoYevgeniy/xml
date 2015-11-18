@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:include schemaLocation="simple-types.xml"/>
+
+    <xs:complexType name="OrderType">
+        <xs:sequence>
+            <xs:element name="id"/>
+            <xs:element name="customer" type="CustomerType"/>
+            <xs:element name="beers" type="Beers"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CustomerType">
+        <xs:sequence>
+            <xs:element name="id"/>
+            <xs:element name="name"/>
+            <xs:element name="lastname"/>
+            <xs:element name="address" type="AddressType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="AddressType">
+        <xs:sequence>
+            <xs:element name="streetAddress"/>
+            <xs:element name="city"/>
+            <xs:element name="zip"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Beers">
+        <xs:sequence>
+            <xs:element name="beer" type="BeerType" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="BeerType">
+        <xs:sequence>
+            <xs:element name="id"/>
+            <xs:element name="name"/>
+            <xs:element name="type"/>
+            <xs:element name="alcohol" type="AlcoholType"/>
+            <xs:element name="manufacturer"/>
+            <xs:element name="ingredients" type="IngredientsType"/>
+            <xs:element name="characteristics" type="CharacteristicsType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="IngredientsType">
+        <xs:sequence>
+            <xs:element name="ingredient" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CharacteristicsType">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="characteristic" type="CharacteristicType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CharacteristicType">
+        <xs:sequence minOccurs="1" maxOccurs="unbounded">
+            <xs:element name="description"/>
+            <xs:element name="value" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

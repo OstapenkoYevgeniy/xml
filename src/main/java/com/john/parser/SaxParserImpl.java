@@ -1,64 +1,85 @@
 package com.john.parser;
 
-import com.john.annotation.SetterField;
-import com.john.entity.Beer;
+import com.john.annotation.XmlElement;
+import com.john.annotation.XmlNewClass;
+import com.john.annotation.XmlRootElement;
+import com.john.entity.Customer;
+import org.boon.Boon;
 import org.slf4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
-import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-public class SaxParserImpl implements Parser{
+public class SaxParserImpl implements Parser {
     private Logger log = org.slf4j.LoggerFactory.getLogger(SaxParserImpl.class);
-    private Map<String, MethodHandle> configuration;
-    private Map<Class, Function<String, ?>> converter;
+    private Map<String, MethodHandle> configuration = new HashMap<>();
+    private Map<Class, Function<String, ?>> converter = new HashMap<>();
 
-    public void configure(Class clazz) throws NoSuchFieldException, IllegalAccessException, NoSuchMethodException {
+    private Map<String, Map<String, Method>> config = new HashMap<>();
+
+
+    public void configure(Class clazz) throws NoSuchFieldException, IllegalAccessException, NoSuchMethodException, ClassNotFoundException {
         log.info("SaxParser.Configure() start!");
-        configuration = new HashMap<>();
-        converter = new HashMap<>();
+
+        Map<String, Method> sm = new HashMap<>();
 
         MethodHandles.Lookup lookup = MethodHandles.lookup();
 
         Field[] fields = clazz.getDeclaredFields();
-        Method[] methods = clazz.getDeclaredMethods();
+        String object = clazz.getSimpleName();
         for (Field field : fields) {
-            String fieldName = field.getName();
-            for (Method method : methods) {
-                if (method.isAnnotationPresent(SetterField.class)) {
-                    if (fieldName.equals(method.getAnnotation(SetterField.class).name())) {
-                        System.out.println(fieldName);
-                        Parameter[] mm = method.getParameters();
-                        System.out.println("**********");
-                        for (Parameter parameter : mm) {
-                            System.out.println(parameter.getType());
-                        }
-                        System.out.println("**********");
-                        System.out.println("----------");
-                        configuration.put(fieldName, lookup.unreflect(method));
-                    }
-                }
+            String simpleName = field.getName();
+            Class classType = field.getType();
+            if (!classType.getSimpleName().equals("List")) {
+                sm.put(simpleName, clazz.getMethod("set" + firstUpper(simpleName), classType));
+            } else {
+                sm.put(simpleName,clazz.getMethod("add" + firstUpper(simpleName),getGenericType(field.getGenericType())));
             }
-        }
 
-        converter.put(int.class, s -> Integer.parseInt((String) s));
-        converter.put(double.class, s -> Double.parseDouble((String) s));
-        converter.put(float.class, s -> Float.parseFloat((String) s));
-        converter.put(String.class, String::valueOf);
-        converter.put(Beer.Alcohol.class, s -> Beer.Alcohol.valueOf((String) s));
+            System.out.println(field.getType());
+            System.out.println(field.getType().getDeclaredFields());
+        }
+        config.put(object, sm);
+    }
+
+    private Class getGenericType(Type genericType) throws ClassNotFoundException {
+        String result = genericType.getTypeName();
+        result = result.substring(result.lastIndexOf("<") + 1, result.lastIndexOf(">"));
+        return Class.forName(result);
+    }
+
+    private String firstUpper(String string) {
+        return string.substring(0, 1).toUpperCase() + string.substring(1, string.length());
+    }
+
+
+    public void showConfigure() {
+        System.out.println("SHOW CONFIGURE!!!!!!");
+        for (Map.Entry<String, MethodHandle> entry : configuration.entrySet()) {
+            System.out.println(entry.getKey() + " - " + entry.getValue());
+        }
+        System.out.println("--------");
+        for (Map.Entry<String, Map<String, Method>> entry : config.entrySet()) {
+            System.out.println(entry.getKey());
+            System.out.println(entry.getValue());
+
+        }
     }
 
     @Override
@@ -82,8 +103,12 @@ public class SaxParserImpl implements Parser{
     private class Handler extends DefaultHandler {
         Class clazz;
         Object obj;
+        Object curretObject;
+        Class curretClass;
         StringBuilder charaster;
         String currentElement;
+        String rootElement = "";
+        Deque<Object> deque = new ArrayDeque<>();
 
         public Handler(Class clazz) {
             this.clazz = clazz;
@@ -112,22 +137,26 @@ public class SaxParserImpl implements Parser{
         @Override
         public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws SAXException {
             //log.debug("startElement(" + s + ", " + s1 + ", " + s2 + ", attributes)");
+            System.out.println("s|" + namespaceURI + "| |" + localName + "| |" + qName + "|");
             currentElement = qName;
+
         }
 
         @Override
         public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
             // log.debug("endElement(" + s + ", " + s1 + ", " + s2 + ")");
-            try {
-                MethodHandle mh = configuration.get(currentElement);
-                if (mh != null) {
-                    System.out.println(charaster);
-                    //mh.invoke(obj, converter.get(mh.type().parameterType(1)).apply(charaster.toString()));
-                }
-            } catch (Throwable throwable) {
-                throwable.printStackTrace();
-            }
-            currentElement = "";
+            // System.out.println("e|" + namespaceURI + "| |" + localName + "| |" + qName + "|");
+
+//            try {
+//                MethodHandle mh = configuration.get(currentElement);
+//                if (mh != null) {
+//                    System.out.println(charaster);
+//                    //mh.invoke(obj, converter.get(mh.type().parameterType(1)).apply(charaster.toString()));
+//                }
+//            } catch (Throwable throwable) {
+//                throwable.printStackTrace();
+//            }
+//            currentElement = "";
 
         }
 
