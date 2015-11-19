@@ -1,13 +1,14 @@
 package com.john;
 
-import com.john.entity.Demo;
 import com.john.entity.Order;
 import com.john.parser.ParserException;
 
-import com.john.parser.SaxParserImpl;
+import com.john.parser.SaxParserImpNew;
 import org.slf4j.Logger;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Main {
@@ -20,9 +21,8 @@ public class Main {
         File file = new File(classLoader.getResource("order.xml").getFile());
 
 
-
         Order order = null;
-        SaxParserImpl saxParser = new SaxParserImpl();
+        SaxParserImpNew saxParser = new SaxParserImpNew();
         try {
             order = saxParser.parse(file, Order.class);
         } catch (ParserException e) {
@@ -30,7 +30,7 @@ public class Main {
             System.exit(0);
         }
 
-        System.out.println("EPAAAAAAAAAAAAAA!!!");
+        System.out.println("\n\n\n\n\n\n\n\nMAIN!!!!!!!!!!!!!!!!");
         System.out.println(order);
         System.out.println(order.toSourceString());
 

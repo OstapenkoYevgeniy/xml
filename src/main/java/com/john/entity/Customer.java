@@ -3,42 +3,52 @@ package com.john.entity;
 import com.john.annotation.XmlElement;
 import com.john.annotation.XmlRootElement;
 
-@XmlRootElement(name = "customer")
 public class Customer {
     private long id;
     private String name;
     private String lastname;
-    private String streetAddress;
-    private String city;
-    private String zip;
+    private Address address;
+//    private String streetAddress;
+//    private String city;
+//    private String zip;
 
-    @XmlElement(name = "customerId")
     public void setId(long id) {
         this.id = id;
     }
 
-    @XmlElement(name = "customerName")
-    public void setName(String name) {
+        public void setName(String name) {
         this.name = name;
     }
-
-    @XmlElement(name = "lastname")
+//
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
 
-    @XmlElement(name = "streetAddress")
-    public void setStreetAddress(String streetAddress) {
-        this.streetAddress = streetAddress;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
-    @XmlElement(name = "city")
-    public void setCity(String city) {
-        this.city = city;
+    //    public void setStreetAddress(String streetAddress) {
+//        this.streetAddress = streetAddress;
+//    }
+//
+//    public void setCity(String city) {
+//        this.city = city;
+//    }
+//
+//    public void setZip(String zip) {
+//        this.zip = zip;
+//    }
+//
+    public long getId() {
+        return id;
     }
 
-    @XmlElement(name = "zip")
-    public void setZip(String zip) {
-        this.zip = zip;
+    public String toSourceString() {
+        String result = "id: " + id + "\n";
+        result += "name: " + name + "\n";
+        result += "lastname: " + lastname + "\n";
+        result += address.toSourceString();
+        return result;
     }
 }

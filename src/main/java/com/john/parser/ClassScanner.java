@@ -2,20 +2,120 @@ package com.john.parser;
 
 import org.slf4j.Logger;
 
-import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 
 public class ClassScanner {
     Logger log = org.slf4j.LoggerFactory.getLogger(ClassScanner.class);
+
+    public Object findField(Class clazz, String pfield) {
+        System.out.println(clazz + " --- " + pfield);
+        // Если текущий элемент XML equals Имени класса, иначе это поле
+        if (clazz.getSimpleName().toLowerCase().equals(pfield)) {
+            System.out.println("111111111111111111111111111111111111111111");
+            try {
+                return clazz.newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+                throw new RuntimeException("FUCK!!!");
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+                throw new RuntimeException("FUCK!!!");
+            }
+        } else if (clazz == ArrayList.class) {
+            System.out.println("222222222222222222222222222222222222222222");
+            System.out.println("***********************************");
+            System.out.println("***********************************");
+            System.out.println("***********************************");
+            System.out.println("***********************************");
+            System.out.println("***********************************");
+            System.out.println("***********************************");
+            System.out.println("***********************************");
+        } else {
+            System.out.println("33333333333333333333333333333333333333");
+            Field field = null;
+            try {
+                field = clazz.getDeclaredField(pfield);
+                // Если поле примитив, то вернуть метод этого поля
+                if (field.getType().isPrimitive()) {
+                    MethodHandles.Lookup lookup = MethodHandles.lookup();
+                    Method method = clazz.getDeclaredMethod("set" + firstUpper(pfield), field.getType());
+                    return method;
+                } else if (field.getType() == String.class) {
+                    log.debug("set" + firstUpper(pfield), field.getType());
+                    MethodHandles.Lookup lookup = MethodHandles.lookup();
+                    Method method = clazz.getDeclaredMethod("set" + firstUpper(pfield), field.getType());
+                    return method;
+                } else if (isListITD(field.getType())) {
+                    switch (field.getType().getSimpleName()) {
+                        case "List":
+                            return new ArrayList<>();
+                        default:
+                            throw new RuntimeException("BASD");
+                    }
+                    // Если это новый объект TODO если это стринг или еще что то не наших рук дело, как это вычислить??
+                } else if (field.getName().equals(pfield)) {
+                    return field.getType().newInstance();
+                }
+            } catch (Exception e) {
+//                throw new RuntimeException("Class  scanner findField error NoSuchFieldException");
+                System.out.println("ERRORRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR ");
+                return null;
+            }
+        }
+        return null;
+    }
+
+    public Method findMethod(Class aClass, String qName) {
+        System.out.println("asdasdqweqwe");
+        System.out.println(aClass + " - " + qName);
+        try {
+
+            Field field = aClass.getDeclaredField(qName);
+            System.out.println("set" + firstUpper(qName) + " - " + field.getType());
+            return aClass.getMethod("set" + firstUpper(qName), field.getType());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+//    public Method findMethod(Class aClass, String field, Class classParam) {
+//        switch (classParam.getSimpleName()) {
+//            case "List":
+//                System.out.println("add" + deletaLastLetter(firstUpper(field)));
+//                return null;
+//            default:
+//                throw new RuntimeException("Illegal argument!!");
+//        }
+//    }
+
+    // Если класс реализует интерфейс листа, мапы, и прочего
+    public boolean isListITD(Class clazz) {
+        switch (clazz.getSimpleName()) {
+            case "List":
+                return true;
+            case "Map":
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private String firstUpper(String value) {
+        return value.substring(0, 1).toUpperCase() + value.substring(1, value.length());
+    }
+
+    private String deletaLastLetter(String value) {
+        return value.substring(0, value.length() - 1);
+    }
+}
+
+//
+//
 //    private Map<String, MethodHandle> configuration = new HashMap<>();
 //    private Map<Class, Function<String, ?>> converter = new HashMap<>();
 //
@@ -43,51 +143,3 @@ public class ClassScanner {
 //        }
 //        config.put(object, sm);
 //    }
-
-    public Object findField(Class clazz, String pfield) throws IllegalAccessException, InstantiationException {
-        if (clazz.getSimpleName().toLowerCase().equals(pfield)) {
-            System.out.println("Class - " + pfield);
-            return clazz.newInstance();
-        } else {
-            Field field = null;
-            try {
-                field = clazz.getDeclaredField(pfield);
-                if (field.getType().isPrimitive()) {
-                    MethodHandles.Lookup lookup = MethodHandles.lookup();
-                    Method method = clazz.getDeclaredMethod("set" + firstUpper(pfield), field.getType());
-                    return method;
-                } else if (isListITD(field.getType())) {
-                    switch (field.getType().getSimpleName()) {
-                        case "List": return new ArrayList<>();
-                          default: throw new RuntimeException("BASD");
-                    }
-                } else if (field.getName().equals(pfield)) {
-                    System.out.println("NEW OBJECT");
-                    System.out.println(field.getType().isInterface());
-                    return field.getType().newInstance();
-                }
-
-                return null;
-            } catch (NoSuchFieldException e) {
-//                throw new RuntimeException("Class  scanner findField error NoSuchFieldException");
-                System.out.println("ERRORRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR NoSuchFieldException");
-            } catch (NoSuchMethodException e) {
-               // throw new RuntimeException("Class scanner findField error NoSuchMethodException");
-                System.out.println("ERRORRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR NoSuchFieldException");
-            }
-        }
-        return null;
-    }
-
-    public boolean isListITD (Class clazz) {
-        switch (clazz.getSimpleName()) {
-            case "List" : return true;
-            case "Map" : return true;
-            default: return false;
-        }
-    }
-
-    private String firstUpper(String value) {
-        return value.substring(0, 1).toUpperCase() + value.substring(1, value.length());
-    }
-}

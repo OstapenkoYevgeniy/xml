@@ -18,6 +18,7 @@ public class Order {
 //    }
 
 
+
     public void setId(long id) {
         this.id = id;
     }
@@ -26,16 +27,18 @@ public class Order {
         this.customer = customer;
     }
 
-    public void addBeers(Beer beer) {
+    public void addBeer(Beer beer) {
         beers.add(beer);
     }
 
     public String toSourceString() {
         String result = "id: " + id + "\n";
-        result += "Customer: " + id;
+        result += "Customer --\n";
+        result += customer.toSourceString();
 
         return result;
     }
+
 
     public long getId() {
         return id;
