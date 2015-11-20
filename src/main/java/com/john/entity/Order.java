@@ -3,8 +3,6 @@ package com.john.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-//@XmlRootElement(name = "order")
-//@XmlType(propOrder = {"id","customers","beers"})
 public class Order {
     private long id;
     private Customer customer;
@@ -14,7 +12,6 @@ public class Order {
     public Order() {
         beers = new ArrayList<>();
     }
-
 
 
     public void setId(long id) {
@@ -29,23 +26,6 @@ public class Order {
         beers.add(beer);
     }
 
-    public String toSourceString() {
-        String result = "id: " + id + "\n";
-        result += "Customer --\n";
-        result += customer.toSourceString() + "\n";
-
-
-        result += "Beers:\n";
-
-
-        for (Beer beer : beers) {
-            result += beer.toSourceString();
-        }
-
-        return result;
-    }
-
-
     public long getId() {
         return id;
     }
@@ -56,5 +36,19 @@ public class Order {
 
     public List<Beer> getBeers() {
         return beers;
+    }
+
+    public String toSourceString() {
+        String result = "id: " + id + "\n";
+        result += "Customer --\n";
+        result += customer.toSourceString() + "\n";
+
+        result += "Beers:\n";
+
+        for (Beer beer : beers) {
+            result += beer.toSourceString();
+        }
+
+        return result;
     }
 }

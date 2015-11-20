@@ -85,7 +85,7 @@ public class Scan {
         try {
             Class classForName = Class.forName(type.getTypeName());
             Constructor constructor = classForName.getConstructor(String.class);
-            Object objectValue = constructor.newInstance(value); // TODO это плохо! разделить на ветки и все обертки проверить
+            Object objectValue = constructor.newInstance(value); // TODO это плохо! разделить на ветки и все обертки проверить, newInstance \то плохо
             field.set(object, objectValue);
         } catch (IllegalAccessException | ClassNotFoundException | NoSuchMethodException | InstantiationException | InvocationTargetException e) {
             throw new RuntimeException("setFieldValue", e);
@@ -93,10 +93,6 @@ public class Scan {
     }
 
     public void setFieldValue(Object object, Field field, String value) {
-        System.out.println("56565656565656565665");
-        System.out.println(value);
-        System.out.println(field);
-        System.out.println("56565656565656565665");
         Type type = field.getType();
         try {
             if (type == long.class) {

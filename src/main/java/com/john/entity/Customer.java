@@ -11,10 +11,10 @@ public class Customer {
         this.id = id;
     }
 
-        public void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
-//
+
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
