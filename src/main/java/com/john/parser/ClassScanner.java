@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,9 @@ public class ClassScanner {
     Logger log = org.slf4j.LoggerFactory.getLogger(ClassScanner.class);
 
     public Object findField(Class clazz, String pfield) {
+        System.out.println("456456456");
         System.out.println(clazz + " --- " + pfield);
+        System.out.println("456456456");
         // Если текущий элемент XML equals Имени класса, иначе это поле
         if (clazz.getSimpleName().toLowerCase().equals(pfield)) {
             System.out.println("111111111111111111111111111111111111111111");
@@ -20,10 +24,10 @@ public class ClassScanner {
                 return clazz.newInstance();
             } catch (InstantiationException e) {
                 e.printStackTrace();
-                throw new RuntimeException("FUCK!!!");
+                throw new RuntimeException("!!!");
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
-                throw new RuntimeException("FUCK!!!");
+                throw new RuntimeException("!!!");
             }
         } else if (clazz == ArrayList.class) {
             System.out.println("222222222222222222222222222222222222222222");
@@ -56,7 +60,6 @@ public class ClassScanner {
                         default:
                             throw new RuntimeException("BASD");
                     }
-                    // Если это новый объект TODO если это стринг или еще что то не наших рук дело, как это вычислить??
                 } else if (field.getName().equals(pfield)) {
                     return field.getType().newInstance();
                 }
@@ -79,6 +82,24 @@ public class ClassScanner {
             return aClass.getMethod("set" + firstUpper(qName), field.getType());
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Method findAddMethod(Class aClass, String qName) {
+        Field[] fields = aClass.getDeclaredFields();
+        for (Field field : fields) {
+            if (field.getName().equals(qName)) {
+                ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();
+                Type[] types = parameterizedType.getActualTypeArguments();
+                for (Type type : types) {
+                    try {
+                        return aClass.getMethod("add" + deletaLastLetter(firstUpper(qName)),Class.forName(type.getTypeName()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
         return null;
     }
@@ -111,6 +132,34 @@ public class ClassScanner {
 
     private String deletaLastLetter(String value) {
         return value.substring(0, value.length() - 1);
+    }
+
+    private static String classSimpleName(String className) {
+        return className.substring(className.lastIndexOf(".") + 1, className.length());
+    }
+
+    public Object findFieldList(Class aClass, String qName) {
+        Field[] fields = aClass.getDeclaredFields();
+        for (Field field : fields) {
+            if (field.getType().isInterface()) {
+                ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();
+                Type[] types = parameterizedType.getActualTypeArguments();
+                for (Type type : types) {
+                    if (classSimpleName(type.getTypeName()).toLowerCase().equals(qName)) {
+                        try {
+                            try {
+                                return Class.forName(type.getTypeName()).newInstance();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 }
 

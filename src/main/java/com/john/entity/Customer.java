@@ -1,16 +1,11 @@
 package com.john.entity;
 
-import com.john.annotation.XmlElement;
-import com.john.annotation.XmlRootElement;
-
 public class Customer {
     private long id;
     private String name;
     private String lastname;
     private Address address;
-//    private String streetAddress;
-//    private String city;
-//    private String zip;
+
 
     public void setId(long id) {
         this.id = id;
@@ -28,18 +23,7 @@ public class Customer {
         this.address = address;
     }
 
-    //    public void setStreetAddress(String streetAddress) {
-//        this.streetAddress = streetAddress;
-//    }
-//
-//    public void setCity(String city) {
-//        this.city = city;
-//    }
-//
-//    public void setZip(String zip) {
-//        this.zip = zip;
-//    }
-//
+
     public long getId() {
         return id;
     }

@@ -1,19 +1,17 @@
 package com.john;
 
 import com.john.entity.Order;
+import com.john.parser.NewSaxParser;
 import com.john.parser.ParserException;
-
-import com.john.parser.SaxParserImpNew;
 import org.slf4j.Logger;
 
 import java.io.File;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class Main {
-
-
     public static void main(String[] args) throws Throwable {
         Logger log = org.slf4j.LoggerFactory.getLogger(Main.class);
 
@@ -22,7 +20,7 @@ public class Main {
 
 
         Order order = null;
-        SaxParserImpNew saxParser = new SaxParserImpNew();
+        NewSaxParser saxParser = new NewSaxParser();
         try {
             order = saxParser.parse(file, Order.class);
         } catch (ParserException e) {
@@ -31,10 +29,10 @@ public class Main {
         }
 
         System.out.println("\n\n\n\n\n\n\n\nMAIN!!!!!!!!!!!!!!!!");
-        System.out.println(order);
+
         System.out.println(order.toSourceString());
 
-//        log.info(beer.toSourceString());
+
     }
 }
 

@@ -1,8 +1,5 @@
 package com.john.entity;
 
-import com.john.annotation.*;
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +10,10 @@ public class Order {
     private Customer customer;
     private List<Beer> beers;
 
-//    public Order() {
-//        beers = new ArrayList<>();
-//    }
+
+    public Order() {
+        beers = new ArrayList<>();
+    }
 
 
 
@@ -34,7 +32,15 @@ public class Order {
     public String toSourceString() {
         String result = "id: " + id + "\n";
         result += "Customer --\n";
-        result += customer.toSourceString();
+        result += customer.toSourceString() + "\n";
+
+
+        result += "Beers:\n";
+
+
+        for (Beer beer : beers) {
+            result += beer.toSourceString();
+        }
 
         return result;
     }
