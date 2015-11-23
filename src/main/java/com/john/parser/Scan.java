@@ -25,6 +25,23 @@ public class Scan {
     }
 
 
+    public void setFieldValue (Object object, String field, Object value) {
+        try {
+            Field result = object.getClass().getDeclaredField(field);
+            result.setAccessible(true);
+
+            System.out.println("\\\\\\\\\\\\\\\\\\");
+            System.out.println(result);
+            System.out.println(field);
+            System.out.println(object);
+            System.out.println(value.getClass());
+            System.out.println("\\\\\\\\\\\\\\\\\\");
+            result.set(object,value);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException("findFieldType", e);
+        }
+    }
+
     public Object findFieldType(Class clazz, String qName) {
         try {
             Field field = clazz.getDeclaredField(qName);
@@ -99,6 +116,7 @@ public class Scan {
                 field.setLong(object, Long.parseLong(value));
             } else {
                 Class classForName = Class.forName(type.getTypeName());
+
                 Constructor constructor = classForName.getConstructor(String.class);
                 Object objectValue = constructor.newInstance(value); // TODO это плохо! разделить на ветки и все обертки проверить
                 field.set(object, objectValue);
@@ -136,4 +154,29 @@ public class Scan {
         }
     }
 
+    public Map findCollection(Class aClass, String qName) {
+        System.out.println("-----------------------");
+        Map<String, Map<String, Class>> result = new LinkedHashMap<>();
+        Map<String, Class> inResult = new HashMap<>();
+
+        Field field = null;
+        try {
+            field = aClass.getDeclaredField(qName);
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException("setFieldValue", e);
+        }
+
+        ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();
+        Type[] types = parameterizedType.getActualTypeArguments();
+
+        if (field.getType() == List.class) {
+            try {
+                inResult.put(getSimpleName(types[0].getTypeName()).toLowerCase(), Class.forName(types[0].getTypeName()));
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException("setFieldValue", e);
+            }
+           result.put(qName, inResult);
+        }
+        return result;
+    }
 }
