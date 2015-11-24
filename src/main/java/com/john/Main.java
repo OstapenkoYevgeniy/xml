@@ -1,41 +1,35 @@
 package com.john;
 
 import com.john.entity.Order;
-import com.john.parser.NewNewSaxParser;
+import com.john.parser.SaxParser;
 import com.john.parser.ParserException;
+import com.john.touristvoucherentity.TouristVoucher;
 import org.slf4j.Logger;
 
 import java.io.File;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 
 public class Main {
     public static void main(String[] args) throws Throwable {
-
         Logger log = org.slf4j.LoggerFactory.getLogger(Main.class);
 
         ClassLoader classLoader = Main.class.getClassLoader();
         File file = new File(classLoader.getResource("order.xml").getFile());
+        // Other xml
+        File fileVoucher = new File(classLoader.getResource("otherXML/tourist-voucher.xml").getFile());
 
         Order order = null;
-        NewNewSaxParser saxParser = new NewNewSaxParser();
+        TouristVoucher voucher = null;
+        SaxParser saxParser = new SaxParser();
+
         try {
-           order = saxParser.parse(file, Order.class);
-            //System.out.println(saxParser.parse(file, Order.class));
+            order = saxParser.parse(file, Order.class);
+            voucher = saxParser.parse(fileVoucher, TouristVoucher.class);
         } catch (ParserException e) {
             log.error("ParserException", e);
-            System.exit(0);
         }
 
-        System.out.println("\n\n\nMAIN!!!!!!!!!!!!!!!!");
-
-      System.out.println(order.toSourceString());
-
-
+        log.info("\n" + order.toSourceString());
+        log.info("\n" + voucher.toSourceString());
     }
 }
 

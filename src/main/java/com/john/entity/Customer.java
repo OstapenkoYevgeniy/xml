@@ -6,33 +6,15 @@ public class Customer {
     private String lastname;
     private Address address;
 
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-
-    public long getId() {
-        return id;
-    }
-
     public String toSourceString() {
-        String result = "id: " + id + "\n";
-        result += "name: " + name + "\n";
-        result += "lastname: " + lastname + "\n";
-        result += address.toSourceString();
-        return result;
+        StringBuilder result = new StringBuilder();
+
+        result.append("-- Id: " + id + "\n");
+        result.append("-- Name: " + name + "\n");
+        result.append("-- Last name: " + lastname + "\n");
+        result.append("---- Address:\n");
+        result.append(address.toSourceString());
+
+        return result.toString();
     }
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<touristvoucher>
+    <vouchers>
+        <voucher>
+            <id>1</id>
+            <typeoftour>pilgrimage</typeoftour>
+            <country>UAE</country>
+            <dayandnightquantity>7/8</dayandnightquantity>
+            <transport>plane</transport>
+              <hotel>
+                <hotelstars>5</hotelstars>
+                <room>2</room>
+                <tv>true</tv>
+                <airconditioner>true</airconditioner>
+            </hotel>
+            <cost>
+                <price>1000</price>
+                <currency>USD</currency>
+            </cost>
+        </voucher>
+        <voucher>
+            <id>2</id>
+            <typeoftour>rest</typeoftour>
+            <country>Spain</country>
+            <dayandnightquantity>10/9</dayandnightquantity>
+            <transport>railway</transport>
+            <hotel>
+                <hotelstars>4</hotelstars>
+                <food>A1</food>
+                <room>1</room>
+                <tv>true</tv>
+                <airconditioner>true</airconditioner>
+            </hotel>
+            <cost>
+                <price>850</price>
+                <currency>EUR</currency>
+            </cost>
+        </voucher>
+    </vouchers>
+</touristvoucher>

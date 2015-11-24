@@ -1,61 +1,42 @@
-package com.john.parser.forParserClass;
-
-import com.john.parser.ClassScanner;
+package com.john.parser;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Deque;
+import java.util.*;
 
 public class CollectionType {
+    // Interface Collection or Map
     private Object type;
     private String fieldName;
     private Object collectionItem;
     private Deque dequeItem = new ArrayDeque<>();
 
-
     public CollectionType(Field field, String qName) {
         this.fieldName = qName;
         this.type = getType(field);
         this.collectionItem = getCollectionItem(field);
-
     }
 
-    public Deque getDequeItem() {
-        return dequeItem;
-    }
-
-    public void addLastDeqeItemInCollection() {
+    public void addValueInCollection() {
         Collection collection = (Collection) type;
         collection.add(dequeItem.getLast());
         type = collection;
         dequeItem.removeLast();
     }
 
-    public void addLastDeqeItemInCollection(String value) {
-
+    public void addValueInCollection(String value) {
         Collection collection = (Collection) type;
         collection.add(value);
         type = collection;
-        System.out.println(fieldName);
-        System.out.println(type);
-        System.out.println("||||" + dequeItem.getLast());
         dequeItem.removeLast();
     }
 
-    public void addDequeItem (Object objcet) {
-        System.out.println("addDequeItem ******************************");
-        System.out.println(objcet);
-        dequeItem.add(objcet);
-        System.out.println("addDequeItem ******************************");
-    }
+    public void addItemToDeque(Object objcet) { dequeItem.add(objcet); }
 
     public Object getLastDequeItem() {
         if (dequeItem.size() == 0) {
-            return "false";
+            return "Crutch :(";
         } else {
             return dequeItem.getLast();
         }
@@ -74,23 +55,13 @@ public class CollectionType {
     }
 
     private Object getType(Field field) {
-        if (field.getType().isInterface()) {
             if (isList(field.getType())) {
                 return new ArrayList<>();
             } else {
-                // При добавлении Map необходимо и пересмотреть логику сollectionItem, и сollectionItem(Field field)
-                throw new UnsupportedOperationException("Not supported map");
+                return new HashMap<>();
             }
-        } else {
-            try {
-                return field.getType().newInstance();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
     }
 
-    // Error когда получаем List<List<Object>> lists
     private Object getCollectionItem(Field field) {
         ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();
         Type[] types = parameterizedType.getActualTypeArguments();
@@ -102,13 +73,10 @@ public class CollectionType {
     }
 
     private boolean isList(Class clazz) {
-        if (clazz == Collection.class) {
-            return true;
-        }
+        if (clazz == Collection.class) { return true; }
         Class[] interfaces = clazz.getInterfaces();
-        for (Class anInterface : interfaces) {
-            return isList(anInterface);
-        }
+        // TODO Вопрос! Почему подсвечивает for? Как это исправить?
+        for (Class anInterface : interfaces) return isList(anInterface);
         return false;
     }
 }

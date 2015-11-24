@@ -1,74 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <order xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="order.xsd">
-    <id>188888</id>
-    <demo>2</demo>
-    <!--&lt;!&ndash;<customer>&ndash;&gt;-->
-    <!--&lt;!&ndash;<id>895</id>&ndash;&gt;-->
-    <!--&lt;!&ndash;<name>Yevgeniy</name>&ndash;&gt;-->
-    <!--&lt;!&ndash;<lastname>Ostapenko</lastname>&ndash;&gt;-->
-    <!--&lt;!&ndash;<address>&ndash;&gt;-->
-    <!--&lt;!&ndash;<street>70 - 2 - 33</street>&ndash;&gt;-->
-    <!--&lt;!&ndash;<city>Temirtau</city>&ndash;&gt;-->
-    <!--&lt;!&ndash;<zip>405000</zip>&ndash;&gt;-->
-    <!--&lt;!&ndash;</address>&ndash;&gt;-->
-    <!--&lt;!&ndash;</customer>&ndash;&gt;-->
+    <id>715</id>
 
-    <demoint>
-        <!--<integer>555</integer>-->
-        <!--<integer>777</integer>-->
-    </demoint>
-    <demolist>
-        <!--<string>йцйцуйцу</string>-->
-        <!--<string>йцйц324</string>-->
-    </demolist>
+    <customer>
+        <id>895</id>
+        <name>Yevgeniy</name>
+        <lastname>Ostapenko</lastname>
+        <address>
+            <street>70kv. dom 2, kv.33</street>
+            <city>Temirtau</city>
+            <zip>405000</zip>
+        </address>
+    </customer>
 
-
-    <!--<beers>-->
-        <!--&lt;!&ndash;<beer>&ndash;&gt;-->
-        <!--&lt;!&ndash;<id>0</id>&ndash;&gt;-->
-        <!--&lt;!&ndash;<name>Zatecky Gus</name>&ndash;&gt;-->
-        <!--&lt;!&ndash;<type>Светлое</type>&ndash;&gt;-->
-        <!--&lt;!&ndash;<alcohol>Алкогольное</alcohol>&ndash;&gt;-->
-        <!--&lt;!&ndash;<manufacturer>ТОО "CARLSBERG KAZAKHSTAN"</manufacturer>&ndash;&gt;-->
-        <!--&lt;!&ndash;<ingredients>&ndash;&gt;-->
-        <!--&lt;!&ndash;<string>Вода питьевая очищенная</string>&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;<ingredient>Солод ячменный светлый</ingredient>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;<ingredient>Ячмень пивоваренный</ingredient>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;<ingredient>Солодовый экстракт</ingredient>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;<ingredient>Хлебопродукты</ingredient>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</ingredients>&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<characteristics>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<characteristic>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<description>Тара</description>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<value>Стеклянная</value>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</characteristic>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<characteristic>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<description>Объем</description>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<value>0.5</value>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</characteristic>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<characteristic>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<description>Содержание алкоголя</description>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<value>4.6</value>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</characteristic>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<characteristic>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<description>Прозрачность</description>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<value>89</value>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</characteristic>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<characteristic>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<description>Фильтрованное</description>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</characteristic>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<characteristic>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<description>Пищевая ценность</description>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<value>40</value>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</characteristic>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</characteristics>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</beer>&ndash;&gt;-->
-        <!--&lt;!&ndash;<beer>&ndash;&gt;-->
-        <!--&lt;!&ndash;<id>1</id>&ndash;&gt;-->
-        <!--&lt;!&ndash;<name>Karaganda</name>&ndash;&gt;-->
-        <!--&lt;!&ndash;<type>Dark</type>&ndash;&gt;-->
-        <!--&lt;!&ndash;</beer>&ndash;&gt;-->
-    <!--</beers>-->
+    <beers>
+        <beer>
+            <id>0</id>
+            <name>Zatecky Gus</name>
+            <type>Light</type>
+            <alcohol>Alcohol</alcohol>
+            <manufacturer>ТОО "CARLSBERG KAZAKHSTAN"</manufacturer>
+            <ingredients>
+                <string>Вода питьевая очищенная</string>
+                <string>Солод ячменный светлый</string>
+                <string>Ячмень пивоваренный</string>
+                <string>Солодовый экстракт</string>
+                <string>Хлебопродукты</string>
+            </ingredients>
+            <characteristics>
+                <characteristic>
+                    <description>Тара</description>
+                    <value>Стеклянная</value>
+                </characteristic>
+                <characteristic>
+                    <description>Объем</description>
+                    <value>0.5</value>
+                </characteristic>
+                <characteristic>
+                    <description>Содержание алкоголя</description>
+                    <value>4.6</value>
+                </characteristic>
+                <characteristic>
+                    <description>Прозрачность</description>
+                    <value>89</value>
+                </characteristic>
+                <characteristic>
+                    <description>Фильтрованное</description>
+                </characteristic>
+                <characteristic>
+                    <description>Пищевая ценность</description>
+                    <value>40</value>
+                </characteristic>
+            </characteristics>
+        </beer>
+        <beer>
+            <id>1</id>
+            <name>Baltika 0</name>
+            <type>Dark</type>
+            <alcohol>Free alcohol</alcohol>
+            <manufacturer>ТОО "Beer House"</manufacturer>
+            <ingredients>
+                <string>Вода питьевая очищенная</string>
+                <string>Солод ячменный светлый</string>
+                <string>Хлебопродукты</string>
+            </ingredients>
+            <characteristics>
+                <characteristic>
+                    <description>Тара</description>
+                    <value>Стеклянная</value>
+                </characteristic>
+                <characteristic>
+                    <description>Объем</description>
+                    <value>0.33</value>
+                </characteristic>
+                <characteristic>
+                    <description>Безалкогольное</description>
+                </characteristic>
+                <characteristic>
+                    <description>Прозрачность</description>
+                    <value>72</value>
+                </characteristic>
+                <characteristic>
+                    <description>Фильтрованное</description>
+                </characteristic>
+                <characteristic>
+                    <description>Пищевая ценность</description>
+                    <value>37</value>
+                </characteristic>
+            </characteristics>
+        </beer>
+    </beers>
 </order>

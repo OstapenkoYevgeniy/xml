@@ -47,7 +47,7 @@
 
     <xs:complexType name="IngredientsType">
         <xs:sequence>
-            <xs:element name="ingredient" minOccurs="1" maxOccurs="unbounded"/>
+            <xs:element name="string" minOccurs="1" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -60,7 +60,7 @@
     <xs:complexType name="CharacteristicType">
         <xs:sequence minOccurs="1" maxOccurs="unbounded">
             <xs:element name="description"/>
-            <xs:element name="value" minOccurs="0" />
+            <xs:element name="value" minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>
 </xs:schema>
